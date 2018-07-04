@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "funcoesAlgoritmos.h"
+#include "funcoesAlgoritimos.h"
 
 tNo* alocaNo(int valor) {
 

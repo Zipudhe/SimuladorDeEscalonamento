@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "funcoesAlgoritmos.c"
+#include "funcoesAlgoritimos.c"
 
 typedef struct No { int dado;
                  	struct No* prox;

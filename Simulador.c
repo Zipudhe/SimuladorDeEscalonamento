@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include "funcoesAlgoritimos.h"
+
 int main(){
   int TempoChegada,TempoExecucao,DeadLine, Prioridade; //aspectos do Processo.
   int NumProcessos, QuantumSistema, Sobrecarga; // aspectos do sistema.
