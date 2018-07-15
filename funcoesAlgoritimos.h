@@ -4,6 +4,8 @@ typedef struct tNode { struct tNode* prox;
                  int TempoExecucao;
                  int DeadLine;
                  int Prioridade;
+                 int exec = 0;
+                 int TempoNoSistema = 0;
                } Processo;
 
 Processo* createNode(int tempochegada,int tempoexecucao,int deadline,int prioridade);

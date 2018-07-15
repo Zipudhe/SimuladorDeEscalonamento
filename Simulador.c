@@ -28,10 +28,10 @@ int main(){
     novo = createNode(TempodeChegada,TempoExecucao, DeadLine,Prioridade); //Cria o processo que vai entrar na lista;
     insereProcesso(&root, novo); //insere o processo dentro da lista;
   }
-  Fifo(&root);
-  RoundRobin(&root);
-  Sjf(&root);
-  EDF(&root);
+  Fifo(&root,NumProcessos, QuantumSistema, Sobrecarga);
+  RoundRobin(&root,NumProcessos, QuantumSistema, Sobrecarga);
+  Sjf(&root,NumProcessos, QuantumSistema, Sobrecarga);
+  EDF(&root,NumProcessos, QuantumSistema, Sobrecarga);
   for (int i = 0; i < NumProcessos; i++) {
     printf("chamada de função\n", );
   }
