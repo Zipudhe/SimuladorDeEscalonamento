@@ -13,8 +13,8 @@ Processo* createNode(int tempochegada,int tempoexecucao,int deadline,int priorid
 	Processo* novo = (Processo*) malloc(sizeof(Processo));
   if(novo != NULL){
 		novo->TempoChegada = tempochegada;
-    novo->DeadLine = deadline;
     novo->TempoExecucao = tempoexecucao;
+    novo->DeadLine = deadline;
     novo->Prioridade = prioridade;
 		novo->prox =  NULL;
 		return novo;
@@ -24,6 +24,7 @@ Processo* createNode(int tempochegada,int tempoexecucao,int deadline,int priorid
 
 
 bool insereProcesso(Processo* L, int TempoChegada,int TempoExecucao,int DeadLine,int Prioridade){
+  printf("hum\n");
   if(L == NULL ){
     L = createNode(TempoChegada, TempoExecucao, DeadLine, Prioridade);
     return true;
@@ -44,7 +45,7 @@ bool insereProcesso(Processo* L, int TempoChegada,int TempoExecucao,int DeadLine
 // }
 //
 void Fifo(Processo *L,int NumProcessos,int QuantumSistema,int Sobrecarga,char *vet){
-  printf("ZAP\n");
+  // printf("%d\n",L->TempoExecucao);
   // Cada processo vai ser uma linha da matriz para fazer a impressão do gráfico de Gantt
 //   Processo atualG = L;
 //   Processo atualL = L;

@@ -9,7 +9,7 @@ int main(){
   int NumProcessos, QuantumSistema, Sobrecarga; // aspectos do sistema.
   int Algoritimo;
   char* vet;
-  Processo root;
+  Processo *root;
   printf("============= Bem-vindo ao Simulador de Escalonamento =============\n");
   printf("Insira a quantidade de Processos, Quantum do sistema e Sobrecarga do sistema:");
   scanf("%d %d %d", &NumProcessos,&QuantumSistema,&Sobrecarga);
@@ -25,10 +25,10 @@ int main(){
     scanf("%d\n",&DeadLine);
     printf("Prioridade:");
     scanf("%d\n",&Prioridade);
-    init()
-    insereProcesso(&root, TempoChegada, TempoExecucao, DeadLine, Prioridade); //insere o processo dentro da lista;
+    root = NULL;
+    insereProcesso(root, TempoChegada, TempoExecucao, DeadLine, Prioridade); //insere o processo dentro da lista;
   }
-  Fifo(&root, NumProcessos, QuantumSistema, Sobrecarga,vet);
+  Fifo(root, NumProcessos, QuantumSistema, Sobrecarga,vet);
   // RoundRobin(&root,NumProcessos, QuantumSistema, Sobrecarga);
   // Sjf(&root,NumProcessos, QuantumSistema, Sobrecarga);
   // EDF(&root,NumProcessos, QuantumSistema, Sobrecarga);
