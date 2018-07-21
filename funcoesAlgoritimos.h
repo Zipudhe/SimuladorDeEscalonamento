@@ -7,6 +7,10 @@ typedef struct tNode { struct tNode* prox;
                   executando,
                   TempoNoSistema;
                } Processo;
+// typedef struct{
+//   Processo *inicio;
+//   int NumProc;
+// } Fila;
 
 Processo* createNode(int tempochegada,int tempoexecucao,int deadline,int prioridade);
 //************************************************
@@ -19,10 +23,10 @@ Processo* createNode(int tempochegada,int tempoexecucao,int deadline,int priorid
 //
 //insere o processo de acordo com o seu tempo de Execução.
 //podemos fazer uma função dessa para cada Algoritimo.
-bool insereProcesso(Processo* L, int TempoChegada,int TempoExecucao,int DeadLine,int Prioridade);
+bool insereProcesso(Processo** L, int TempoChegada,int TempoExecucao,int DeadLine,int Prioridade);
 // //*************************************************
 
-void Fifo(Processo *L,int NumProcessos,int QuantumSistema,int Sobrecarga,char *vet);
+void Fifo(Processo** L,int NumProcessos,int QuantumSistema,int Sobrecarga);
 
 // void RoundRobin(Processo *L);
 
