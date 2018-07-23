@@ -53,9 +53,6 @@ bool insereProcesso(Processo** L, int TempoChegada,int TempoExecucao,int DeadLin
 //
 void Fifo(Processo **L,int NumProcessos,int QuantumSistema,int Sobrecarga){
   Processo *atual = *L;
-  while (atual != NULL) {
-    atual = atual->prox;
-  }
   // Cada processo vai ser uma linha da matriz para fazer a impressão do gráfico de Gantt
   Processo *atualG = *L;
   Processo *atualL = *L;
@@ -66,7 +63,7 @@ void Fifo(Processo **L,int NumProcessos,int QuantumSistema,int Sobrecarga){
   int i;
   char matriz[100][100];
   while(atualL != NULL){
-    tempoTotal = tempoTotal + atualL->TempoExecucao + 20;
+    tempoTotal = tempoTotal + atualL->TempoExecucao;
     atualL =  atualL->prox;
   }
   // printf("%d\n",tempoTotal);
@@ -75,51 +72,58 @@ void Fifo(Processo **L,int NumProcessos,int QuantumSistema,int Sobrecarga){
       if(menor->TempoChegada > atualG->TempoChegada){
         menor =  atualG;
         atualG = atualG->prox;
-        printf("Zap");
+        // printf("Zap");
       }
       else{
         atualG =  atualG->prox;
-        printf("zap\n");
+        // printf("zap\t");
       }
     }
     menor->executando = 1;
     atualG = *L;
-    printf("%d\n",menor->TempoChegada);
+    // printf("%d",menor->TempoChegada);
     while(atualG != NULL){
-      if(atualG->executando == 1 && atualG->TempoChegada <= count){
-        // printf("Chegada <= count e executando\t");
-        // printf("count:%d tempo:%d", count, atualG->TempoChegada);
+      if(atualG->TempoChegada == menor->TempoChegada && atualG->TempoChegada <= count && menor->executando){
+        // printf("executando -- ");
         matriz[j][i] = '+';
-        atualG->TempoNoSistema++;
-        atualG->TempoExecucao--;
-      }
+				// printf("%c",matriz[j][i]);
+        menor->TempoNoSistema = atualG->TempoNoSistema+1;
+        menor->TempoExecucao = atualG->TempoExecucao-1;
+			}
       else if(atualG->TempoChegada <= count && atualG->executando == 0){
         // printf("Chegada <= count e n executando 0\t");
         // printf("count:%d tempo:%d", count, atualG->TempoChegada);
         matriz[j][i] =  '-';
-        atualG->TempoNoSistema++;
+        atualG->TempoNoSistema+1;
       }
-      else if(atualG->TempoChegada > count && atualG->TempoExecucao == 0){
-        // printf("Chegada > count e execucao é 0\t");
+      else if(atualG->TempoChegada > count || atualG->TempoExecucao == 0 && atualG->executando == 0){
+				// printf("%d --",atualG->TempoExecucao);
+				// printf("Nada acontece --  ");
         // printf("count: %d tempo: %d", count, atualG->TempoChegada);
         matriz[j][i] = ' ';
-      }
-      printf("\n");
+				// printf("%c",matriz[j][i]);
+			}
+      // printf("\t");
       // if(atualG->executando = 1 && count == QuantumSistema){
       //   atual->TempoExecucao -= QuantumSistema;
       //   count = 0;
       // }
       // printf("%d \t %d", j, i);
-      if(atualG->executando == 1 && atualG->TempoExecucao == 0){
-        atualG->executando = 0;
-        atualG->TempoChegada = 10000;
-      }
+      if(menor->TempoExecucao == 0 && atualG->TempoChegada == menor->TempoChegada && atualG->Prioridade == menor->Prioridade){
+        atualG->executando = menor->executando = 0;
+        atualG->TempoChegada = menor->TempoChegada = 10000;
+			}
       atualG =  atualG->prox;
       j++; // percorre as linhas;
     }
+		atualG = *L;
     count++;
-    menor = *L;
-  }
+		for(int linha = 0; linha < NumProcessos; linha++){
+			printf("cu\n");
+		}
+    // menor = *L;
+		// printf("\n");
+	}
   // printf("%d\n",NumProcessos);
   // for (j = 0; j < NumProcessos; j++) {
   //   for (i = 0; i < tempoTotal; i++) {
