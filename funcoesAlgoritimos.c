@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdbool.h>
 #include <math.h>
+#include<unistd.h>
 #include "funcoesAlgoritimos.h"
 
 // void initLista(Processo* L){
@@ -57,7 +58,7 @@ void Fifo(Processo **L,int NumProcessos,int QuantumSistema,int Sobrecarga){
   Processo *atualG = *L;
   Processo *atualL = *L;
   Processo *menor = *L;
-  int tempoTotal = 0;
+  int tempoTotal = 20	;
   int count = 0;
   int j = 0;
   int i;
@@ -66,71 +67,54 @@ void Fifo(Processo **L,int NumProcessos,int QuantumSistema,int Sobrecarga){
     tempoTotal = tempoTotal + atualL->TempoExecucao;
     atualL =  atualL->prox;
   }
-  // printf("%d\n",tempoTotal);
-  for(i = 0; i < tempoTotal; i++){ // percorre as colunas
+  for(i = 0; i < tempoTotal+3; i++){ // percorre as colunas
     while(atualG != NULL){
       if(menor->TempoChegada > atualG->TempoChegada){
         menor =  atualG;
         atualG = atualG->prox;
-        // printf("Zap");
       }
       else{
         atualG =  atualG->prox;
-        // printf("zap\t");
       }
     }
     menor->executando = 1;
     atualG = *L;
-    // printf("%d",menor->TempoChegada);
     while(atualG != NULL){
       if(atualG->TempoChegada == menor->TempoChegada && atualG->TempoChegada <= count && menor->executando){
-        // printf("executando -- ");
         matriz[j][i] = '+';
 				// printf("%c",matriz[j][i]);
-        menor->TempoNoSistema = atualG->TempoNoSistema+1;
+				menor->TempoNoSistema = atualG->TempoNoSistema+1;
         menor->TempoExecucao = atualG->TempoExecucao-1;
 			}
       else if(atualG->TempoChegada <= count && atualG->executando == 0){
-        // printf("Chegada <= count e n executando 0\t");
-        // printf("count:%d tempo:%d", count, atualG->TempoChegada);
         matriz[j][i] =  '-';
-        atualG->TempoNoSistema+1;
+				// printf("%c",matriz[j][i]);
+				atualG->TempoNoSistema+1;
       }
       else if(atualG->TempoChegada > count || atualG->TempoExecucao == 0 && atualG->executando == 0){
-				// printf("%d --",atualG->TempoExecucao);
-				// printf("Nada acontece --  ");
-        // printf("count: %d tempo: %d", count, atualG->TempoChegada);
         matriz[j][i] = ' ';
 				// printf("%c",matriz[j][i]);
 			}
-      // printf("\t");
-      // if(atualG->executando = 1 && count == QuantumSistema){
-      //   atual->TempoExecucao -= QuantumSistema;
-      //   count = 0;
-      // }
-      // printf("%d \t %d", j, i);
+
       if(menor->TempoExecucao == 0 && atualG->TempoChegada == menor->TempoChegada && atualG->Prioridade == menor->Prioridade){
         atualG->executando = menor->executando = 0;
         atualG->TempoChegada = menor->TempoChegada = 10000;
 			}
       atualG =  atualG->prox;
       j++; // percorre as linhas;
-    }
+			// printf("linhas: %d",j);
+		}
+		j = 0;
+		// printf("coluna: %d", i);
 		atualG = *L;
     count++;
-		for(int linha = 0; linha < NumProcessos; linha++){
-			printf("cu\n");
-		}
-    // menor = *L;
-		// printf("\n");
 	}
-  // printf("%d\n",NumProcessos);
-  // for (j = 0; j < NumProcessos; j++) {
-  //   for (i = 0; i < tempoTotal; i++) {
-  //     printf("%c",matriz[j][i]);
-  //   }
-  //   printf("\n");
-  // }
+		for (j = 0; j < NumProcessos; j++) {
+			for (i = 0; i < tempoTotal; i++) {
+      	printf("%c",matriz[j][i]);
+		}
+		printf("\n");
+  }
 }
 
 // void RoundRobin(Processo *L,NumProcessos, QuantumSistema, Sobrecarga,char* matriz){

@@ -17,13 +17,13 @@ int main(){
   for(int i = 1; i <= NumProcessos; i++){
     printf("PROCESSO %d\n",i);
     printf("Tempo de chegada:");
-    scanf("%d\n",&TempoChegada);
+    scanf("%d",&TempoChegada);
     printf("Tempo de Execução:");
-    scanf("%d\n",&TempoExecucao);
+    scanf("%d",&TempoExecucao);
     printf("DeadLine:");
-    scanf("%d\n",&DeadLine);
+    scanf("%d",&DeadLine);
     printf("Prioridade:");
-    scanf("%d\n\n",&Prioridade);
+    scanf("%d",&Prioridade);
     insereProcesso(&root, TempoChegada, TempoExecucao, DeadLine, Prioridade); //insere o processo dentro da lista;
   }
   Fifo(&root, NumProcessos, QuantumSistema, Sobrecarga);
